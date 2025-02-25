@@ -1,5 +1,5 @@
 import { Response, NextFunction } from "express"
-import { IRequest } from "../interface"
+import { IRequest } from "@/src/types"
 import { Err } from "../lib/error.interceptor"
 import jwt from "../lib/jwt"
 import { redis } from "../lib/redis"

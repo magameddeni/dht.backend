@@ -8,6 +8,21 @@ class CategoryController {
     res.status(200).json(response)
   }
 
+  async createManufacturer(req: Request, res: Response) {
+    await categoryService.createCategoryManufacturer(req.body)
+    res.status(200).json("OK")
+  }
+
+  async createBrand(req: Request, res: Response) {
+    await categoryService.createCategoryBrand(req.body)
+    res.status(200).json("OK")
+  }
+
+  async createCountryManufacturer(req: Request, res: Response) {
+    await categoryService.createCategoryCountryManufacturer(req.body)
+    res.status(200).json("OK")
+  }
+
   async getCategories(req: Request, res: Response) {
     const categories = await categoryService.getCategories()
     res.status(200).json(categories)

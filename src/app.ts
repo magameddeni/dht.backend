@@ -1,24 +1,22 @@
 import express from "express"
 import dotenv from "dotenv"
 dotenv.config()
-import config from "./config/config"
 import cors from "cors"
 import Cookie from "cookie-parser"
 import userRouter from "./user/user.router"
+import brandRouter from "./brand/brand.router"
 import categoryRouter from "./category/category.router"
+import productRouter from "./product/product.router"
 import { errorHandler, errorLogger } from "./lib"
 import { PGPool } from "./database"
-import { IConfig } from "./types"
 import { Pool } from "pg"
 
 export class App {
   private app: express.Express
   private port: string | number
-  private config: IConfig
   postgresql: Pool
 
   constructor() {
-    this.config = config
     this.app = express()
     this.port = process.env.APP_PORT || 3000
     this.postgresql = new PGPool().connection
@@ -39,6 +37,8 @@ export class App {
     this.app.use(express.static("public"))
     this.app.use("/", userRouter)
     this.app.use("/category", categoryRouter)
+    this.app.use("/brand", brandRouter)
+    this.app.use("/product", productRouter)
   }
 
   private useExectionFilter() {
