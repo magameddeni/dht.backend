@@ -6,7 +6,7 @@ import { IRequest } from "../types"
 
 const storage = multer.diskStorage({
   destination: async (req: IRequest, file, cb) => {
-    const uploadPath = path.join(__dirname, `../public/${req.user?.id}`)
+    const uploadPath = path.join(__dirname, `../public`)
     if (!fs.existsSync(uploadPath))
       fs.mkdirSync(uploadPath, { recursive: true })
     cb(null, uploadPath)

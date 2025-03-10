@@ -7,3 +7,4 @@ export type {
   ICategoryManufacturer,
 } from "./category"
 export type { IBrand } from "./brand"
+export type { ICategoryAttribute } from "./attributes"

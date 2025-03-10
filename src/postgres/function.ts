@@ -34,6 +34,21 @@ export const createFunctionGetCountryManufacturerIdByName = `CREATE OR REPLACE F
 	END;
 $$ LANGUAGE plpgsql;`
 
+export const createFunctionAddCategoryAttributes = `
+CREATE OR REPLACE FUNCTION addCategoryAttributes (ca_name TEXT, ca_value TEXT, c_id INT, ca_type TEXT, ca_unit TEXT, ca_required BOOLEAN) RETURNS INT AS $$
+	DECLARE 
+	    category_attribute_id INT;
+	BEGIN 
+	    SELECT id INTO category_attribute_id FROM category_attributes WHERE attribute_name = a_name AND category_id =  c_id;
+	    IF NOT FOUND THEN 
+	        INSERT INTO category_attributes (category_id, attribute_name, data_type, required, unit) VALUES (
+				c_id, ca_name, ca_type, ca_reqired, ca_unit
+			) RETURNING id INTO category_attribute_id;
+	    END IF;
+	    RETURN category_attribute_id;
+	END;
+$$ LANGUAGE plpgsql;`
+
 export const createFunctionGetProductVariants = `CREATE OR REPLACE FUNCTION  getProductVariantsAndImagesByProductId(product_id INT) 
 RETURNS jsonb AS $$
 BEGIN

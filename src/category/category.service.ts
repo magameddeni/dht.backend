@@ -8,17 +8,12 @@ import {
 } from "@/src/types"
 
 class CategoryService {
-  async create({
-    category_name,
-    icon,
-    category_nesting,
-    parent_id,
-  }: ICategory) {
+  async create({ name, icon, nesting, parent_id }: ICategory) {
     const response = await pool.query(
-      `INSERT INTO categories (category_name, icon, category_nesting, parent_id) VALUES ($1, $2, $3, $4) RETURNING *`,
-      [category_name, icon, category_nesting, parent_id],
+      `INSERT INTO categories (name, icon, nesting, parent_id) VALUES ($1, $2, $3, $4) RETURNING *`,
+      [name, icon, nesting, parent_id],
     )
-    return response
+    return response["rows"]
   }
 
   async createCategoryBrand({ category_id, brand_id }: ICategoryBrand) {

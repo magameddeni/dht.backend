@@ -2,9 +2,9 @@ import { Request, Response } from "express"
 import categoryService from "./category.service"
 
 class CategoryController {
-  create(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     const data = req.body
-    const response = categoryService.create(data)
+    const response = await categoryService.create(data)
     res.status(200).json(response)
   }
 
